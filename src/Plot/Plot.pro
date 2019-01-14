@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     QtChartTest \
     QCustomPlotTest \
-    QwtTest
+    QwtTest \
+    Alltest

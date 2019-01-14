@@ -2,7 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include "qcustomplot/qcustomplot.h"
+#include "../qcustomplot/qcustomplot.h"
 
 class Widget : public QCustomPlot
 {
