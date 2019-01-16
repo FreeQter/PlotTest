@@ -9,7 +9,7 @@
 #include <QChart>
 #include <QIntValidator>
 #include <QLineSeries>
-
+#include <QtCore>
 #include "../qcustomplot/qcustomplot.h"
 
 #include "qwt_plot.h"

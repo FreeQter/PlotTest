@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    QtChartTest \
-    QCustomPlotTest \
-    QwtTest \
+#    QtChartTest \
+#    QCustomPlotTest \
+#    QwtTest \
     Alltest

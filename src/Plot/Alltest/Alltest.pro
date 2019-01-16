@@ -24,10 +24,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-LIBS += -L/usr/local/qwt-6.1.5-svn/lib -lqwt
-INCLUDEPATH += /usr/local/qwt-6.1.5-svn/include
+#LIBS += -L/usr/local/qwt-6.1.5-svn/lib -lqwt
+INCLUDEPATH += $$PWD/../qwt/
 
-include(../qcustomplot/qcustomplot.pri)
+include($$PWD/../qwt/qwt.pri)
+include($$PWD/../qcustomplot/qcustomplot.pri)
 
 SOURCES += \
         main.cpp \
