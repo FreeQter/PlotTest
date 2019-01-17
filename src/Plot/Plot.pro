@@ -4,4 +4,5 @@ SUBDIRS += \
 #    QtChartTest \
 #    QCustomPlotTest \
 #    QwtTest \
-    Alltest
+    Alltest \
+    splot
