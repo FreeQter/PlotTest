@@ -1,9 +1,11 @@
 #include "splot.h"
 
-#include <qwt/qwt_plot_canvas.h>
-#include <qwt/qwt_plot_grid.h>
-#include <qwt/qwt_plot_magnifier.h>
-#include <qwt/qwt_panner.h>
+#include <QtWidgets>
+
+#include "qwt_plot_canvas.h"
+#include "qwt_plot_grid.h"
+#include "qwt_plot_magnifier.h"
+#include "qwt_panner.h"
 
 SPlot::SPlot(QWidget *parent) : QwtPlot (parent)
 {
@@ -15,12 +17,19 @@ SPlot::SPlot(QWidget *parent) : QwtPlot (parent)
 void SPlot::initData()
 {
     this->m_plotType = YxPlot;
-//    setAxisTitle(Axis::yLeft, "Pa");
-//    setAxisTitle(Axis::xBottom, "mm");
+    m_titleText.setColor(QColor(120, 120, 120));
+    QFont font;
+    font.setBold(true);
+    font.setPointSize(12);
+    m_titleText.setFont(font);
+    m_titleText.setText("Y(x)");
+    setTitle(m_titleText);
 
+    // canvas
     m_canvas = new QwtPlotCanvas;
     setCanvas(m_canvas);
 
+    // default curve
     m_curve = new QwtPlotCurve;
     m_curve->attach(this);
 }
@@ -42,7 +51,7 @@ void SPlot::initUI()
 
     // grid
     QwtPlotGrid* grid = new QwtPlotGrid;
-    grid->setPen(QColor(200, 200, 200));
+    grid->setPen(QColor(240, 240, 240));
     grid->attach(this);
 
     // zoom in/out with the wheel

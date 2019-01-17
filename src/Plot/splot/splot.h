@@ -3,13 +3,17 @@
 
 #include <QObject>
 
-#include <qwt/qwt_plot.h>
-#include <qwt/qwt_scale_draw.h>
-#include <qwt/qwt_plot_curve.h>
+#include "qwt_plot.h"
+#include "qwt_scale_draw.h"
+#include "qwt_plot_curve.h"
+#include "qwt_text.h"
 
 class QwtPlotCanvas;
 class QwtPlotGrid;
 class QwtPlotCurve;
+
+class QLabel;
+
 class SPlot : public QwtPlot
 {
     Q_OBJECT
@@ -24,6 +28,7 @@ public:
     void initData();
     void initUI();
     void initConnect();
+
     void setSamples(const QVector<QPointF> datas);
 
 signals:
@@ -34,6 +39,7 @@ private:
     SPlotType m_plotType;
     QwtPlotCanvas* m_canvas;
     QwtPlotCurve* m_curve;
+    QwtText m_titleText;
 };
 
 class SScaleDraw: public QwtScaleDraw{
