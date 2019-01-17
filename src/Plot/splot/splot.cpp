@@ -20,6 +20,9 @@ void SPlot::initData()
 
     m_canvas = new QwtPlotCanvas;
     setCanvas(m_canvas);
+
+    m_curve = new QwtPlotCurve;
+    m_curve->attach(this);
 }
 
 void SPlot::initUI()
@@ -31,11 +34,11 @@ void SPlot::initUI()
 
     // canvas
     setCanvasBackground(Qt::white);
-    m_canvas->setFrameStyle( QFrame::Box | QFrame::Plain );
-    QPalette canvasPalette( Qt::white );
-    canvasPalette.setColor( QPalette::Foreground, Qt::white);
-    canvasPalette.setColor( QPalette::Background, Qt::white);
-    m_canvas->setPalette( canvasPalette );
+    m_canvas->setFrameStyle(QFrame::Box|QFrame::Plain);
+    QPalette canvasPalette(Qt::white);
+    canvasPalette.setColor(QPalette::Foreground, Qt::white);
+    canvasPalette.setColor(QPalette::Background, Qt::white);
+    m_canvas->setPalette(canvasPalette);
 
     // grid
     QwtPlotGrid* grid = new QwtPlotGrid;
@@ -43,7 +46,7 @@ void SPlot::initUI()
     grid->attach(this);
 
     // zoom in/out with the wheel
-    ( void ) new QwtPlotMagnifier( m_canvas );
+    (void) new QwtPlotMagnifier(m_canvas);
 
     // colorized scale draw
     setAxisScaleDraw(xBottom, new SScaleDraw);
@@ -51,7 +54,6 @@ void SPlot::initUI()
 
     // panner
     (void) new QwtPanner(m_canvas);
-
 }
 
 void SPlot::initConnect()
@@ -59,9 +61,10 @@ void SPlot::initConnect()
 
 }
 
-SScaleDraw::SScaleDraw(): QwtScaleDraw ()
+void SPlot::setSamples(const QVector<QPointF> datas)
 {
-
+    m_curve->setSamples(datas);
+    replot();
 }
 
 void SScaleDraw::drawLabel(QPainter *painter, double value) const
