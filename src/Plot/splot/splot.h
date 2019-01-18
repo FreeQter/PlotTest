@@ -2,6 +2,7 @@
 #define SPLOT_H
 
 #include <QObject>
+#include <QtWidgets>
 
 #include "qwt_plot.h"
 #include "qwt_scale_draw.h"
@@ -11,8 +12,7 @@
 class QwtPlotCanvas;
 class QwtPlotGrid;
 class QwtPlotCurve;
-
-class QLabel;
+class ZoomControlFrame;
 
 class SPlot : public QwtPlot
 {
@@ -40,6 +40,7 @@ private:
     QwtPlotCanvas* m_canvas;
     QwtPlotCurve* m_curve;
     QwtText m_titleText;
+    ZoomControlFrame* m_zoomControlPanel;
 };
 
 class SScaleDraw: public QwtScaleDraw{
@@ -50,7 +51,21 @@ protected:
     void drawLabel(QPainter* painter, double value) const;
     void drawTick (QPainter *painter, double value, double len) const;
     void drawBackbone (QPainter *painter) const;
+};
 
+
+class ZoomControlFrame: public QFrame{
+    Q_OBJECT
+public:
+    explicit ZoomControlFrame(QWidget* parent = nullptr);
+    void initData();
+    void initUI();
+    void initConnect();
+
+private:
+    QPushButton* m_zoomInBtn;
+    QPushButton* m_zoomOutBtn;
+    QPushButton* m_zoomOriginBtn;
 };
 
 #endif // SPLOT_H

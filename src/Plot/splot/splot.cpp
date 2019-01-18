@@ -1,6 +1,6 @@
 #include "splot.h"
 
-#include <QtWidgets>
+#include <QFile>
 
 #include "qwt_plot_canvas.h"
 #include "qwt_plot_grid.h"
@@ -63,6 +63,18 @@ void SPlot::initUI()
 
     // panner
     (void) new QwtPanner(m_canvas);
+
+    // zoom control panel
+    m_zoomControlPanel = new ZoomControlFrame(this);
+    m_zoomControlPanel->move(m_canvas->x() + 60, m_canvas->y() + 40);
+
+    // style sheet
+    QFile f(":/qss/default.qss");
+    if(f.open(QIODevice::ReadOnly)) {
+        QString qss = f.readAll();
+        setStyleSheet(qss);
+        f.close();
+    }
 }
 
 void SPlot::initConnect()
@@ -94,3 +106,36 @@ void SScaleDraw::drawBackbone(QPainter *painter) const
     QwtScaleDraw::drawBackbone(painter);
 }
 
+
+ZoomControlFrame::ZoomControlFrame(QWidget *parent): QFrame (parent)
+{
+    initData();
+    initUI();
+    initConnect();
+}
+
+void ZoomControlFrame::initData()
+{
+
+}
+
+void ZoomControlFrame::initUI()
+{
+    QHBoxLayout* layout = new QHBoxLayout;
+    m_zoomInBtn = new QPushButton(this);
+    m_zoomInBtn->setObjectName("ZoomIn");
+    m_zoomOutBtn = new QPushButton(this);
+    m_zoomOutBtn->setObjectName("ZoomOut");
+    m_zoomOriginBtn = new QPushButton(this);
+    m_zoomOriginBtn->setObjectName("ZoomOrigin");
+    layout->setSpacing(20);
+    layout->addWidget(m_zoomInBtn);
+    layout->addWidget(m_zoomOutBtn);
+    layout->addWidget(m_zoomOriginBtn);
+    setLayout(layout);
+}
+
+void ZoomControlFrame::initConnect()
+{
+
+}
