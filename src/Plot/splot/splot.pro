@@ -28,10 +28,14 @@ INCLUDEPATH += $$PWD/../qwt/
 
 SOURCES += \
         main.cpp \
-    splot.cpp
+    splot.cpp \
+    editor.cpp \
+    interactiveshapeitem.cpp
 
 HEADERS += \
-    splot.h
+    splot.h \
+    editor.h \
+    interactiveshapeitem.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

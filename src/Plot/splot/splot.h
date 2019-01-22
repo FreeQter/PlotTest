@@ -31,6 +31,8 @@ public:
 
     void setSamples(const QVector<QPointF> datas);
 
+protected:
+
 signals:
 
 public slots:

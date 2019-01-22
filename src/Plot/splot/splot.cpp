@@ -6,12 +6,28 @@
 #include "qwt_plot_grid.h"
 #include "qwt_plot_magnifier.h"
 #include "qwt_panner.h"
+#include "qwt_plot_panner.h"
+
+#include "editor.h"
+
+// test
+#include "interactiveshapeitem.h"
 
 SPlot::SPlot(QWidget *parent) : QwtPlot (parent)
 {
     initData();
     initUI();
     initConnect();
+
+    // test
+//    NoPassItem* item = new NoPassItem;
+//    item->attach(this);
+
+    InteractiveShapeItem* item = new InteractiveShapeItem;
+    QPainterPath path;
+    path.addRect(QRectF(0, 0, 200 , 100));
+    item->setShape(path);
+    item->attach(this);
 }
 
 void SPlot::initData()
@@ -28,10 +44,14 @@ void SPlot::initData()
     // canvas
     m_canvas = new QwtPlotCanvas;
     setCanvas(m_canvas);
+    m_canvas->setMouseTracking(true);
 
     // default curve
     m_curve = new QwtPlotCurve;
     m_curve->attach(this);
+
+    // editor
+    new Editor(this);
 }
 
 void SPlot::initUI()
@@ -62,7 +82,9 @@ void SPlot::initUI()
     setAxisScaleDraw(yLeft, new SScaleDraw);
 
     // panner
-    (void) new QwtPanner(m_canvas);
+//    QwtPlotPanner* panner = new QwtPlotPanner(m_canvas);
+//    panner->setAxisEnabled( QwtPlot::yLeft, false );
+//    panner->setAxisEnabled( QwtPlot::xBottom, false );
 
     // zoom control panel
     m_zoomControlPanel = new ZoomControlFrame(this);

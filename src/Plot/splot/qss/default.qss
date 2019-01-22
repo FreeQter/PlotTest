@@ -1,17 +1,18 @@
 QPushButton{
     border: 1px solid #e0e0e0;
     border-radius: 3px;
-    background: #eeeeee;
+    background: #f0f0f0;
     width: 30px;
     height: 30px;
 }
 
-QPushButton:pressed{
-    border: 1px solid #e0e0e0;
-    border-radius: 3px;
-    background: #f0f0f0;
+QPushButton:hover{
+    background: #ffffff;
 }
 
+QPushButton:pressed{
+    background: #dddddd;
+}
 
 QPushButton#ZoomIn{
     image: url(:/icons/zoom-in.png);
@@ -24,4 +25,3 @@ QPushButton#ZoomOut{
 QPushButton#ZoomOrigin{
     image: url(:/icons/zoom-origin.png);
 }
-
