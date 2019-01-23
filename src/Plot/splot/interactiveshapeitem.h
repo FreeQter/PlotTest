@@ -8,6 +8,7 @@ class InteractiveShapeItem: public QObject, public QwtPlotShapeItem
 {
     Q_OBJECT
     enum InteractMode{
+        INone = 0x00000000,
         ITop = 0x00000001,
         IBottom = 0x00000010,
         ILeft = 0x00000100,
@@ -22,8 +23,6 @@ public:
     InteractiveShapeItem(const QString& title = "",
                          QObject *parent = nullptr,
                          const int& interactModes = ITop|IBottom|ILeft|IRight|ITopLeft|ITopRight|IBottomLeft|IBottomRight);
-    void attach(QwtPlot *);
-    void detach();
     void draw(QPainter *, const QwtScaleMap &xMap, const QwtScaleMap &yMap, const QRectF &canvasRect) const override;
     int interactModes() const;
     void setInteractModes(const int& modes);
@@ -31,9 +30,8 @@ public:
     void pressed(const QPoint &);
     void move(const QPoint &);
     void released(const QPoint &);
-
-protected:
-    bool eventFilter(QObject* obj, QEvent* ev) override;
+    // check area point according to qwt's coordinate system
+    bool containsPos(const QPointF &topLeft, const QSizeF &size, const QPointF &pos);
 
 private:
     int m_interactModes;
