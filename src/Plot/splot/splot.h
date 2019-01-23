@@ -13,6 +13,7 @@ class QwtPlotCanvas;
 class QwtPlotGrid;
 class QwtPlotCurve;
 class ZoomControlFrame;
+class QwtPlotGrid;
 
 class SPlot : public QwtPlot
 {
@@ -43,6 +44,7 @@ private:
     QwtPlotCurve* m_curve;
     QwtText m_titleText;
     ZoomControlFrame* m_zoomControlPanel;
+    QwtPlotGrid* m_grid;
 };
 
 class SScaleDraw: public QwtScaleDraw{

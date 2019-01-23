@@ -26,7 +26,8 @@ void InteractiveShapeItem::draw(QPainter *painter, const QwtScaleMap &xMap, cons
     pBottomLeft = QwtScaleMap::transform(xMap, yMap, pBottomLeft);
     QPointF pBottomRight = rect.topRight();
     pBottomRight = QwtScaleMap::transform(xMap, yMap, pBottomRight);
-//    painter->drawRect(QRectF(pTopLeft, QSizeF(pTopRight.x() - pTopLeft.x(), qAbs(pTopRight.y() - pBottomRight.y()))));
+
+    painter->drawRect(QRectF(pTopLeft, QSizeF(pTopRight.x() - pTopLeft.x(), qAbs(pTopRight.y() - pBottomRight.y()))));
 
     QPointF pLeft(pTopLeft.x(), (pTopLeft.y() + pBottomLeft.y()) / 2);
     QPointF pRight(pTopRight.x(), (pTopLeft.y() + pBottomLeft.y()) / 2);
@@ -90,21 +91,21 @@ void InteractiveShapeItem::pressed(const QPoint &pos)
     const QSizeF size(20 * xScale , 20 * yScale);
 
     if (containsPos(pTop - QPointF(10 * xScale, 0), size, p1))
-        m_dragMode = ITop;
+        m_dragMode = ITop & m_interactModes;
     else if (containsPos(pLeft - QPointF(0, -10 * yScale), size, p1))
-        m_dragMode = ILeft;
+        m_dragMode = ILeft & m_interactModes;
     else if (containsPos(pRight - QPointF(20 * xScale, -10 * yScale), size, p1))
-        m_dragMode = IRight;
+        m_dragMode = IRight & m_interactModes;
     else if (containsPos(pBottom - QPointF(10 * xScale, -20 * yScale), size, p1))
-        m_dragMode = IBottom;
+        m_dragMode = IBottom & m_interactModes;
     else if (containsPos(pTopLeft - QPointF(0, 0), size, p1))
-        m_dragMode = ITopLeft;
+        m_dragMode = ITopLeft & m_interactModes;
     else if (containsPos(pTopRight - QPointF(20 * xScale, 0), size, p1))
-        m_dragMode = ITopRight;
+        m_dragMode = ITopRight & m_interactModes;
     else if (containsPos(pBottomLeft - QPointF(0, -20 * yScale), size, p1))
-        m_dragMode = IBottomLeft;
+        m_dragMode = IBottomLeft & m_interactModes;
     else if (containsPos(pBottomRight - QPointF(20 * xScale, -20 * yScale), size, p1))
-        m_dragMode = IBottomRight;
+        m_dragMode = IBottomRight & m_interactModes;
     else
         m_dragMode = INone;
 }
@@ -123,6 +124,7 @@ void InteractiveShapeItem::move(const QPoint &pos)
     case INone:{
         path = shape().translated( p2 - p1 );
         setShape(path);
+        emit shapeModified();
         break;
     }
     case ITopLeft:{
@@ -131,6 +133,7 @@ void InteractiveShapeItem::move(const QPoint &pos)
         rect.setX(rect.x() - (p1.x() - p2.x()));
         path.addRect(rect);
         setShape(path);
+        emit shapeModified();
         break;
     }
     case ITop:{
@@ -138,6 +141,7 @@ void InteractiveShapeItem::move(const QPoint &pos)
         rect.setHeight(rect.height() + dH);
         path.addRect(rect);
         setShape(path);
+        emit shapeModified();
         break;
     }
     case ITopRight:{
@@ -147,6 +151,7 @@ void InteractiveShapeItem::move(const QPoint &pos)
         rect.setHeight(rect.height() + dH);
         path.addRect(rect);
         setShape(path);
+        emit shapeModified();
         break;
     }
 
@@ -154,6 +159,7 @@ void InteractiveShapeItem::move(const QPoint &pos)
         rect.setX(p2.x());
         path.addRect(rect);
         setShape(path);
+        emit shapeModified();
         break;
     }
 
@@ -162,6 +168,7 @@ void InteractiveShapeItem::move(const QPoint &pos)
         rect.setWidth(rect.width() + dW);
         path.addRect(rect);
         setShape(path);
+        emit shapeModified();
         break;
     }
 
@@ -170,6 +177,7 @@ void InteractiveShapeItem::move(const QPoint &pos)
         rect.setY(rect.y() - (p1.y() - p2.y()));
         path.addRect(rect);
         setShape(path);
+        emit shapeModified();
         break;
     }
 
@@ -177,6 +185,7 @@ void InteractiveShapeItem::move(const QPoint &pos)
         rect.setY(rect.y() - (p1.y() - p2.y()));
         path.addRect(rect);
         setShape(path);
+        emit shapeModified();
         break;
     }
 
@@ -186,6 +195,7 @@ void InteractiveShapeItem::move(const QPoint &pos)
         rect.setY(rect.y() - (p1.y() - p2.y()));
         path.addRect(rect);
         setShape(path);
+        emit shapeModified();
         break;
     }
     default:

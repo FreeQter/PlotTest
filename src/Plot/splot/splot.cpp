@@ -11,7 +11,7 @@
 #include "editor.h"
 
 // test
-#include "interactiveshapeitem.h"
+#include "nopassline.h"
 
 SPlot::SPlot(QWidget *parent) : QwtPlot (parent)
 {
@@ -20,14 +20,8 @@ SPlot::SPlot(QWidget *parent) : QwtPlot (parent)
     initConnect();
 
     // test
-//    NoPassItem* item = new NoPassItem;
-//    item->attach(this);
-
-    InteractiveShapeItem* item = new InteractiveShapeItem;
-    QPainterPath path;
-    path.addRect(QRectF(0, 0, 200 , 100));
-    item->setShape(path);
-    item->attach(this);
+    NopassLine* noPassLine = new NopassLine;
+    noPassLine->attach(this);
 }
 
 void SPlot::initData()
@@ -70,9 +64,10 @@ void SPlot::initUI()
     m_canvas->setPalette(canvasPalette);
 
     // grid
-    QwtPlotGrid* grid = new QwtPlotGrid;
-    grid->setPen(QColor(240, 240, 240));
-    grid->attach(this);
+    m_grid = new QwtPlotGrid;
+    m_grid->setPen(QColor(240, 240, 240));
+    m_grid->attach(this);
+    m_grid->setZ(0);
 
     // zoom in/out with the wheel
     (void) new QwtPlotMagnifier(m_canvas);
@@ -80,11 +75,6 @@ void SPlot::initUI()
     // colorized scale draw
     setAxisScaleDraw(xBottom, new SScaleDraw);
     setAxisScaleDraw(yLeft, new SScaleDraw);
-
-    // panner
-//    QwtPlotPanner* panner = new QwtPlotPanner(m_canvas);
-//    panner->setAxisEnabled( QwtPlot::yLeft, false );
-//    panner->setAxisEnabled( QwtPlot::xBottom, false );
 
     // zoom control panel
     m_zoomControlPanel = new ZoomControlFrame(this);

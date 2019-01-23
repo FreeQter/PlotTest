@@ -7,6 +7,8 @@
 class InteractiveShapeItem: public QObject, public QwtPlotShapeItem
 {
     Q_OBJECT
+
+public:
     enum InteractMode{
         INone = 0x00000000,
         ITop = 0x00000001,
@@ -18,8 +20,6 @@ class InteractiveShapeItem: public QObject, public QwtPlotShapeItem
         IBottomLeft = 0x01000000,
         IBottomRight = 0x10000000
     };
-
-public:
     InteractiveShapeItem(const QString& title = "",
                          QObject *parent = nullptr,
                          const int& interactModes = ITop|IBottom|ILeft|IRight|ITopLeft|ITopRight|IBottomLeft|IBottomRight);
@@ -32,6 +32,9 @@ public:
     void released(const QPoint &);
     // check area point according to qwt's coordinate system
     bool containsPos(const QPointF &topLeft, const QSizeF &size, const QPointF &pos);
+
+signals:
+    void shapeModified();
 
 private:
     int m_interactModes;
