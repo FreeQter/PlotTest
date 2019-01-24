@@ -12,6 +12,9 @@
 
 // test
 #include "nopassline.h"
+#include "linex.h"
+#include "liney.h"
+#include "unibox.h"
 
 SPlot::SPlot(QWidget *parent) : QwtPlot (parent)
 {
@@ -22,6 +25,15 @@ SPlot::SPlot(QWidget *parent) : QwtPlot (parent)
     // test
     NopassLine* noPassLine = new NopassLine;
     noPassLine->attach(this);
+    Linex* linex = new Linex;
+    linex->attach(this);
+    LineY* liney = new LineY;
+    liney->attach(this);
+    UniBox* box = new UniBox;
+    box->attach(this);
+    UniBox* box1 = new UniBox;
+    box1->attach(this);
+    box1->setPassDirections(UniBox::UniUpIn|UniBox::UniRinghtOut);
 }
 
 void SPlot::initData()

@@ -31,13 +31,19 @@ SOURCES += \
     splot.cpp \
     editor.cpp \
     interactiveshapeitem.cpp \
-    nopassline.cpp
+    nopassline.cpp \
+    linex.cpp \
+    liney.cpp \
+    unibox.cpp
 
 HEADERS += \
     splot.h \
     editor.h \
     interactiveshapeitem.h \
-    nopassline.h
+    nopassline.h \
+    linex.h \
+    liney.h \
+    unibox.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
