@@ -11,6 +11,7 @@ NopassLine::NopassLine(QObject *parent, const qreal &minX, const qreal &maxX, co
 
 void NopassLine::draw(QPainter *painter, const QwtScaleMap &xMap, const QwtScaleMap &yMap, const QRectF &canvasRect) const
 {
+    painter->setRenderHint(QPainter::Antialiasing);
     QRectF rect = boundingRect();
     QPointF pTopLeft = rect.bottomLeft();
     pTopLeft = QwtScaleMap::transform(xMap, yMap, pTopLeft);

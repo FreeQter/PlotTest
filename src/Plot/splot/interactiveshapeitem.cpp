@@ -12,6 +12,7 @@ void InteractiveShapeItem::draw(QPainter *painter, const QwtScaleMap &xMap, cons
 {
     Q_UNUSED(canvasRect)
     QRectF rect = boundingRect();
+    painter->setRenderHint(QPainter::Antialiasing);
 
     QPen pen;
     pen.setWidth(2);

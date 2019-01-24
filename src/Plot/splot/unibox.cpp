@@ -14,6 +14,7 @@ UniBox::UniBox(QObject *parent, const qreal &minX, const qreal &maxX, const qrea
 
 void UniBox::draw(QPainter *painter, const QwtScaleMap &xMap, const QwtScaleMap &yMap, const QRectF &canvasRect) const
 {
+    painter->setRenderHint(QPainter::Antialiasing);
     QRectF rect = boundingRect();
     QPointF pTopLeft = rect.bottomLeft();
     pTopLeft = QwtScaleMap::transform(xMap, yMap, pTopLeft);
@@ -63,61 +64,62 @@ void UniBox::draw(QPainter *painter, const QwtScaleMap &xMap, const QwtScaleMap 
             << QPointF(8.5, 0)
             << QPointF(0, -5);
 
-    InteractiveShapeItem::draw(painter, xMap, yMap, canvasRect);
+    InteractiveShapeItem::draw(painter, xMap, yMap, canvasRect);\
+    QColor arrowColor(255, 100, 45);
 
     // draw pass directions
     if (m_passDirections & UniDownIn) {
         QPainterPath path;
         path.addPolygon(arrowUp);
         path.translate(pBottom);
-        painter->fillPath(path, Qt::red);
+        painter->fillPath(path, arrowColor);
     }
 
     if (m_passDirections & UniDownOut) {
         QPainterPath path;
         path.addPolygon(arrowDown);
         path.translate(pBottom);
-        painter->fillPath(path, Qt::red);
+        painter->fillPath(path, arrowColor);
     }
 
     if (m_passDirections & UniUpIn) {
         QPainterPath path;
         path.addPolygon(arrowDown);
         path.translate(pTop);
-        painter->fillPath(path, Qt::red);
+        painter->fillPath(path, arrowColor);
     }
 
     if (m_passDirections & UniUpOut) {
         QPainterPath path;
         path.addPolygon(arrowUp);
         path.translate(pTop);
-        painter->fillPath(path, Qt::red);
+        painter->fillPath(path, arrowColor);
     }
 
     if (m_passDirections & UniLeftIn) {
         QPainterPath path;
         path.addPolygon(arrowRight);
         path.translate(pLeft);
-        painter->fillPath(path, Qt::red);
+        painter->fillPath(path, arrowColor);
     }
     if (m_passDirections & UniLeftOut) {
         QPainterPath path;
         path.addPolygon(arrowLeft);
         path.translate(pLeft);
-        painter->fillPath(path, Qt::red);
+        painter->fillPath(path, arrowColor);
     }
 
     if (m_passDirections & UniRightIn) {
         QPainterPath path;
         path.addPolygon(arrowLeft);
         path.translate(pRight);
-        painter->fillPath(path, Qt::red);
+        painter->fillPath(path, arrowColor);
     }
     if (m_passDirections & UniRinghtOut) {
         QPainterPath path;
         path.addPolygon(arrowRight);
         path.translate(pRight);
-        painter->fillPath(path, Qt::red);
+        painter->fillPath(path, arrowColor);
     }
 
 }
