@@ -167,7 +167,9 @@ int UniBox::passDirections() const
 void UniBox::setPassDirections(const int &directions)
 {
     m_passDirections = directions;
-    plot()->repaint();
+    if(plot()){
+        plot()->repaint();
+    }
 }
 
 void UniBox::setMinX(const qreal &minX)

@@ -34,7 +34,8 @@ SOURCES += \
     nopassline.cpp \
     linex.cpp \
     liney.cpp \
-    unibox.cpp
+    unibox.cpp \
+    trianglebox.cpp
 
 HEADERS += \
     splot.h \
@@ -43,7 +44,8 @@ HEADERS += \
     nopassline.h \
     linex.h \
     liney.h \
-    unibox.h
+    unibox.h \
+    trianglebox.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

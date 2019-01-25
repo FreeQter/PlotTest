@@ -15,6 +15,7 @@
 #include "linex.h"
 #include "liney.h"
 #include "unibox.h"
+#include "trianglebox.h"
 
 SPlot::SPlot(QWidget *parent) : QwtPlot (parent)
 {
@@ -34,6 +35,11 @@ SPlot::SPlot(QWidget *parent) : QwtPlot (parent)
     UniBox* box1 = new UniBox;
     box1->attach(this);
     box1->setPassDirections(UniBox::UniUpIn|UniBox::UniRinghtOut);
+    TriangleBox* triangle = new TriangleBox;
+    triangle->attach(this);
+
+    TriangleBox* triangle1 = new TriangleBox(nullptr, 0, 200, 200, 20, TriangleBox::TriangleBottomIn|TriangleBox::TriangleRightOut);
+    triangle1->attach(this);
 }
 
 void SPlot::initData()
