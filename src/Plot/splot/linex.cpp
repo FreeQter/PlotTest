@@ -1,10 +1,12 @@
 #include "linex.h"
 
-Linex::Linex(QObject *parent, const qreal &minX, const qreal &maxX, const qreal &y): InteractiveShapeItem("", parent, ILeft|IRight)
+Linex::Linex(QObject *parent, const qreal &minX, const qreal &maxX, const qreal &y, const int &passDirections):
+    InteractiveShapeItem("", parent, ILeft|IRight)
 {
     m_minX = minX;
     m_maxX = maxX;
     m_y = y;
+    m_directions = passDirections;
     initShape();
     initConnect();
 }
@@ -34,8 +36,35 @@ void Linex::draw(QPainter *painter, const QwtScaleMap &xMap, const QwtScaleMap &
     painter->setPen(pen);
     painter->drawLine(pLeft, pRight);
     painter->drawLine(pLeft - QPointF(0, 8), pLeft + QPointF(0, 8));
-    painter->drawLine(pRight - QPointF(0, 8), pRight + QPointF(0, 8));
+    painter->drawLine(pRight - QPointF(0, 8), pRight + QPointF(0, 8)); 
     InteractiveShapeItem::draw(painter, xMap, yMap, canvasRect);
+
+    QColor arrowColor(255, 100, 45);
+    QPolygonF arrowUp;
+    arrowUp << QPointF(-5, 0)
+            << QPointF(5, 0)
+            << QPointF(0, -8.5)
+            << QPointF(-5, 0);
+
+    QPolygonF arrowDown;
+    arrowDown << QPointF(-5, 0)
+            << QPointF(5, 0)
+            << QPointF(0, 8.5)
+            << QPointF(-5, 0);
+
+    if(m_directions & LXUp) {
+        QPainterPath path;
+        path.addPolygon(arrowUp);
+        path.translate(pTop.x(), pLeft.y());
+        painter->fillPath(path, arrowColor);
+    }
+
+    if(m_directions & LXDown) {
+        QPainterPath path;
+        path.addPolygon(arrowDown);
+        path.translate(pTop.x(), pLeft.y());
+        painter->fillPath(path, arrowColor);
+    }
 }
 
 void Linex::initShape()
@@ -69,6 +98,11 @@ qreal Linex::y() const
     return m_y;
 }
 
+int Linex::directions() const
+{
+    return m_directions;
+}
+
 void Linex::setMinX(const int &minX)
 {
     m_minX = minX;
@@ -94,3 +128,11 @@ void Linex::updateDatas()
     m_maxX = rect.x() + rect.width();
     m_y = rect.y() + 20;
 }
+
+void Linex::setDirections(const int &directions)
+{
+    m_directions = directions;
+    if(plot()) {
+        plot()->update();
+    }
+ }
